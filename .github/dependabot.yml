@@ -1,0 +1,17 @@
+# =========================================================================================== #
+# Dependabot — Automated dependency update configuration.                                     #
+# https://docs.github.com/en/code-security/dependabot                                        #
+# =========================================================================================== #
+
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "ci"

@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "hashicorp.terraform",
+    "hashicorp.hcl",
+    "redhat.vscode-yaml",
+    "codezombiech.gitignore",
+    "davidanson.vscode-markdownlint"
+  ],
+  "unwantedRecommendations": [
+    "mauve.terraform"
+  ]
+}

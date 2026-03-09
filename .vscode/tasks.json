@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Format: terraform fmt",
+      "type": "shell",
+      "command": "terraform fmt -write=true -recursive .",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint: pre-commit (all files)",
+      "type": "shell",
+      "command": "pre-commit run --all-files",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint: yamllint",
+      "type": "shell",
+      "command": "yamllint -c .config/.yamllint.yaml .",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Scan: gitleaks",
+      "type": "shell",
+      "command": "gitleaks detect --source . --verbose",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Full Validation",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Format: terraform fmt",
+        "Lint: yamllint",
+        "Lint: pre-commit (all files)"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

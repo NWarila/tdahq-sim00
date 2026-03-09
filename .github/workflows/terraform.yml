@@ -1,4 +1,4 @@
-name: 'Deploy TDNHQ-SIM##'
+name: 'Deploy TDNHQ-SIM04'
 
 on:
   workflow_dispatch:
@@ -36,21 +36,21 @@ jobs:
 
     steps:
       - name: 'Initalize Temporary AWS Credentials (via OIDC)'
-        uses: 'aws-actions/configure-aws-credentials@v5'
+        uses: 'aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708'  # v5
         with:
           role-to-assume:     ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region:         ${{ secrets.AWS_REGION }}
           mask-aws-account-id: true
 
-      - name: "Checkout The 'TDAHQ-SIM00' Repository"
-        uses: 'actions/checkout@v5'
+      - name: "Checkout The 'TDNHQ-SIM04' Repository"
+        uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8'  # v5.0.0
         with:
           repository: "${{ github.repository }}"
           ref: 'main'
-          path: 'tdahq-sim00'
+          path: 'tdnhq-sim04'
 
       - name: "Checkout The 'Proxmox Terraform Framework' Repository"
-        uses: 'actions/checkout@v5'
+        uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8'  # v5.0.0
         with:
           repository: 'NWarila/proxmox-terraform-framework'
           ref: 'main'
@@ -58,7 +58,7 @@ jobs:
 
       - name: 'Copy TFVars file to Terraform Runner Folder'
         run: |
-          cp "${{ github.workspace }}/tdahq-sim00/terraforms.tfvars" "${{ github.workspace }}/proxmox-terraform-framework/terraform/terraform.tfvars"
+          cp "${{ github.workspace }}/tdnhq-sim04/terraforms.tfvars" "${{ github.workspace }}/proxmox-terraform-framework/terraform/terraform.tfvars"
 
       - name: Terraform Init
         working-directory: "${{ github.workspace }}/proxmox-terraform-framework/terraform"

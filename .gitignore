@@ -1,15 +1,36 @@
 **
 
+# Include Git / Editor Configs
+!.editorconfig
+!.gitattributes
+!.gitignore
+!.pre-commit-config.yaml
+
 # Include GitHub Configs
 !.github/
-!.github/workflows
+!.github/CODEOWNERS
+!.github/dependabot.yml
+!.github/pull_request_template.md
+!.github/ISSUE_TEMPLATE/
+!.github/ISSUE_TEMPLATE/**
+!.github/workflows/
 !.github/workflows/terraform.yml
+!.github/workflows/security.yml
+!.github/workflows/scorecard.yml
 
-# Include Git Configs
-!.gitattribute
-!.gitignore
+# Include VSCode Configs
+!.vscode/
+!.vscode/**
+
+# Include Linter / Tool Configs
+!.config/
+!.config/**
+
+# Include Documentation
+!CONTRIBUTING.md
 !LICENSE
 !README.md
+!SECURITY.md
 
 # Include Core Terraform File
 !terraforms.tfvars
