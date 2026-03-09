@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   terraform:
-    runs-on: [ self-hosted, Windows, X64 ]
+    runs-on: [ self-hosted, Linux, X64 ]
     env:
       # AWS Variables
       TF_VAR_AWS_S3_BUCKET:            "${{ secrets.AWS_S3_BUCKET }}"
