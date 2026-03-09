@@ -53,26 +53,26 @@ jobs:
 
       - name: 'Copy TFVars file to Terraform Runner Folder'
         run: |
-          copy "${{ github.workspace }}\tdahq-sim00\terraform.tfvars" "${{ github.workspace }}\proxmox-terraform-framework\terraform.tfvars" 
+          cp "${{ github.workspace }}/tdahq-sim00/terraforms.tfvars" "${{ github.workspace }}/proxmox-terraform-framework/terraform.tfvars"
 
       - name: Terraform Init
-        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
         run: |
-          terraform init                                                                `
-            -backend-config="bucket=${{ secrets.AWS_S3_BUCKET }}"                       `
-            -backend-config="encrypt=true"                                              `
-            -backend-config="key=${{ github.event.repository.name }}/terraform.tfstate" `
+          terraform init                                                                \
+            -backend-config="bucket=${{ secrets.AWS_S3_BUCKET }}"                       \
+            -backend-config="encrypt=true"                                              \
+            -backend-config="key=${{ github.event.repository.name }}/terraform.tfstate" \
             -backend-config="region=${{ secrets.AWS_REGION }}"
 
       - name: Terraform Validate
-        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
         run: terraform validate
 
       - name: Terraform Plan
-        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
-        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
