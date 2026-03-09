@@ -70,21 +70,21 @@ all_systems = [
 
     network_devices = [
       {
-        ipv4_address = "10.69.12.24"
-        ipv4_cidr    = "24"
-        ipv4_gateway = "10.69.12.1"
-        ipv4_dns     = ["10.69.12.1"]
-        bridge       = "vmbr0"
-        disconnected = false
-        enabled      = true
-        firewall     = false
-        mac_address  = ""
-        model        = "virtio"
-        mtu          = 1480
-      # queues       = null
-      # rate_limit   = null
-        vlan_id      = 112
-      # trunks       = []
+        ipv4_address       = "10.69.12.24"
+        ipv4_prefix_length = "24"
+        ipv4_gateway       = "10.69.12.1"
+        ipv4_dns           = ["10.69.12.1"]
+        bridge             = "vmbr0"
+        disconnected       = false
+        enabled            = true
+        firewall           = false
+        mac_address        = ""
+        model              = "virtio"
+        mtu                = 1480
+      # queues             = null
+      # rate_limit         = null
+        vlan_id            = 112
+      # trunks             = []
       }
     ]
 
