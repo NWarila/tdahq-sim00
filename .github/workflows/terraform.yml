@@ -53,10 +53,10 @@ jobs:
 
       - name: 'Copy TFVars file to Terraform Runner Folder'
         run: |
-          cp "${{ github.workspace }}/tdahq-sim00/terraforms.tfvars" "${{ github.workspace }}/proxmox-terraform-framework/terraform.tfvars"
+          cp "${{ github.workspace }}/tdahq-sim00/terraforms.tfvars" "${{ github.workspace }}/proxmox-terraform-framework/terraform/terraform.tfvars"
 
       - name: Terraform Init
-        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework/terraform"
         run: |
           terraform init                                                                \
             -backend-config="bucket=${{ secrets.AWS_S3_BUCKET }}"                       \
@@ -65,14 +65,14 @@ jobs:
             -backend-config="region=${{ secrets.AWS_REGION }}"
 
       - name: Terraform Validate
-        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework/terraform"
         run: terraform validate
 
       - name: Terraform Plan
-        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework/terraform"
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
-        working-directory: "${{ github.workspace }}/proxmox-terraform-framework"
+        working-directory: "${{ github.workspace }}/proxmox-terraform-framework/terraform"
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
