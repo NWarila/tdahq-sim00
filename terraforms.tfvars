@@ -42,7 +42,10 @@ all_systems = [
     # tpm_state      = {}   # Research how this works with cloning
     # hostpci        = {}   # Not needed for SIM servers
     # usb            = []   # Not needed for SIM servers
-    # initialization = {}   # Research how this works with cloning
+    initialization = {
+      datastore_id = "nvme-pool"
+      servers      = ["10.69.12.1"]
+    }
 
     keyboard_layout = "en-us"
     # kvm_arguments = null
