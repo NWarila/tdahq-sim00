@@ -74,5 +74,5 @@ jobs:
 
       - name: Terraform Apply
         working-directory: "${{ github.workspace }}/proxmox-terraform-framework/terraform"
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         run: terraform apply -auto-approve tfplan
