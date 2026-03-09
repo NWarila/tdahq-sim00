@@ -43,14 +43,14 @@ jobs:
           mask-aws-account-id: true
 
       - name: "Checkout The 'TDNHQ-SIM04' Repository"
-        uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8'  # v5.0.0
+        uses: 'actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd'  # v6.0.2
         with:
           repository: "${{ github.repository }}"
           ref: 'main'
           path: 'tdnhq-sim04'
 
       - name: "Checkout The 'Proxmox Terraform Framework' Repository"
-        uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8'  # v5.0.0
+        uses: 'actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd'  # v6.0.2
         with:
           repository: 'NWarila/proxmox-terraform-framework'
           ref: 'main'
