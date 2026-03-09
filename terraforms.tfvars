@@ -50,7 +50,7 @@ all_systems = [
     keyboard_layout = "en-us"
     # kvm_arguments = null
 
-    machine = "pc"
+    machine = "q35"
 
     memory = {
       dedicated      = 16384
