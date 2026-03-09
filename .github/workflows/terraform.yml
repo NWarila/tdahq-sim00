@@ -29,6 +29,11 @@ jobs:
       TF_VAR_proxmox_api_token_secret: "${{ secrets.PROXMOX_TERRAFORM_FRAMEWORK_SECRET }}"
       TF_VAR_proxmox_skip_tls_verify:  "true"
 
+      # Cloud-Init Variables
+      TF_VAR_proxmox_cloud_init_user_name:       ${{ secrets.CLOUD_INIT_USER_NAME }}
+      TF_VAR_proxmox_cloud_init_user_password:   ${{ secrets.CLOUD_INIT_USER_PASSWORD }}
+      # TF_VAR_proxmox_cloud_init_user_public_key: ${{ secrets.CLOUD_INIT_SSH_PUBLIC_KEY }}
+
     steps:
       - name: 'Initalize Temporary AWS Credentials (via OIDC)'
         uses: 'aws-actions/configure-aws-credentials@v5'
