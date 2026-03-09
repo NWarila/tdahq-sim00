@@ -25,7 +25,7 @@ all_systems = [
 
     cpu = {
       # architecture = null # Value provided from VM template
-      cores       = 2
+      cores       = 8
       flags       = ["+aes", "+amd-ssbd", "+ibpb", "+pdpe1gb", "+virt-ssbd"]
       hotplugged  = 0
       limit       = 0
