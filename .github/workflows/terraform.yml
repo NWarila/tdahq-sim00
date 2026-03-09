@@ -47,7 +47,7 @@ jobs:
       - name: "Checkout The 'Proxmox Terraform Framework' Repository"
         uses: 'actions/checkout@v5'
         with:
-          repository: 'Trinity-Technical-Services-LLC/proxmox-terraform-framework'
+          repository: 'NWarila/proxmox-terraform-framework'
           ref: 'main'
           path: 'proxmox-terraform-framework'
 
