@@ -70,7 +70,7 @@ all_systems = [
 
     network_devices = [
       {
-        ipv4_address = "10.69.12.24"
+        ipv4_address = "10.69.12.24/24"
         ipv4_cidr    = "24"
         ipv4_gateway = "10.69.12.1"
         ipv4_dns     = ["10.69.12.1"]
