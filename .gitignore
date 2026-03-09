@@ -1,0 +1,15 @@
+**
+
+# Include GitHub Configs
+!.github/
+!.github/workflows
+!.github/workflows/terraform.yml
+
+# Include Git Configs
+!.gitattribute
+!.gitignore
+!LICENSE
+!README.md
+
+# Include Core Terraform File
+!terraforms.tfvars

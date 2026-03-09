@@ -1,0 +1,78 @@
+name: 'Deploy TDNHQ-SIM##'
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: read
+
+concurrency:
+  group: tf-${{ github.event.repository.name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  terraform:
+    runs-on: [ self-hosted, Windows, X64 ]
+    env:
+      # AWS Variables
+      TF_VAR_AWS_S3_BUCKET:            "${{ secrets.AWS_S3_BUCKET }}"
+      TF_VAR_AWS_REGION:               "${{ secrets.AWS_REGION }}"
+      TF_VAR_BACKEND_KEY:              "${{ github.event.repository.name }}/terraform.tfstate"
+
+      # Proxmox Variables
+      TF_VAR_proxmox_hostname:         "${{ secrets.PROXMOX_HOSTNAME }}"
+      TF_VAR_proxmox_api_token_id:     "${{ secrets.PROXMOX_TERRAFORM_FRAMEWORK_TOKEN_ID }}"
+      TF_VAR_proxmox_api_token_secret: "${{ secrets.PROXMOX_TERRAFORM_FRAMEWORK_SECRET }}"
+      TF_VAR_proxmox_skip_tls_verify:  "true"
+
+    steps:
+      - name: 'Initalize Temporary AWS Credentials (via OIDC)'
+        uses: 'aws-actions/configure-aws-credentials@v5'
+        with:
+          role-to-assume:     ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region:         ${{ secrets.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: "Checkout The 'TDAHQ-SIM00' Repository"
+        uses: 'actions/checkout@v5'
+        with:
+          repository: "${{ github.repository }}"
+          ref: 'main'
+          path: 'tdahq-sim00'
+
+      - name: "Checkout The 'Proxmox Terraform Framework' Repository"
+        uses: 'actions/checkout@v5'
+        with:
+          repository: 'Trinity-Technical-Services-LLC/proxmox-terraform-framework'
+          ref: 'main'
+          path: 'proxmox-terraform-framework'
+
+      - name: 'Copy TFVars file to Terraform Runner Folder'
+        run: |
+          copy "${{ github.workspace }}\tdahq-sim00\terraform.tfvars" "${{ github.workspace }}\proxmox-terraform-framework\terraform.tfvars" 
+
+      - name: Terraform Init
+        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        run: |
+          terraform init                                                                `
+            -backend-config="bucket=${{ secrets.AWS_S3_BUCKET }}"                       `
+            -backend-config="encrypt=true"                                              `
+            -backend-config="key=${{ github.event.repository.name }}/terraform.tfstate" `
+            -backend-config="region=${{ secrets.AWS_REGION }}"
+
+      - name: Terraform Validate
+        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        working-directory: "${{ github.workspace }}\\proxmox-terraform-framework"
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve tfplan
