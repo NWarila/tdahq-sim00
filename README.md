@@ -69,7 +69,8 @@ tdnhq-sim04/
 │   ├── ISSUE_TEMPLATE/          # Bug report template
 │   ├── workflows/
 │   │   ├── terraform.yml        # Deploy workflow
-│   │   └── security.yml         # Trivy + gitleaks scanning
+│   │   ├── security.yml         # Trivy + gitleaks scanning
+│   │   └── scorecard.yml        # OpenSSF Scorecard analysis
 │   ├── CODEOWNERS               # Review enforcement
 │   ├── dependabot.yml           # Automated Action updates
 │   └── pull_request_template.md

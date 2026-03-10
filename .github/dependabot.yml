@@ -12,6 +12,8 @@ updates:
       interval: "weekly"
       day: "monday"
     target-branch: "main"
+    commit-message:
+      prefix: "chore(deps)"
     labels:
       - "dependencies"
       - "ci"
